@@ -1,0 +1,23 @@
+@import '../../App.module.scss';
+
+.converter {
+  @include block;
+
+  height: fit-content;
+
+  .wrapper {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    .item {
+      display: flex;
+      gap: 10px;
+
+      input {
+        width: 70px;
+      }
+    }
+  }
+}
