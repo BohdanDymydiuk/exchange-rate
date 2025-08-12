@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 
 import { getRates } from './api/currency';
+import { Auth } from './components/Auth';
 import { Converter } from './components/Converter/Converter';
 import { Header } from './components/Header';
 
@@ -10,6 +11,7 @@ import styles from './App.module.scss';
 function App() {
   const currencies = ['UAH', 'USD', 'EUR', 'GBP', 'JPY'];
 
+  const [user, setUser] = useState();
   const [rates, setRates] = useState();
 
   useEffect(() => {
@@ -28,8 +30,16 @@ function App() {
 
   return (
     <div className={styles.app}>
-      {rates && <Header rates={rates} />}
-      {rates && <Converter rates={rates} currencies={currencies.slice(0, 3)} />}
+      {user ? (
+        <>
+          {rates && <Header rates={rates} />}
+          {rates && (
+            <Converter rates={rates} currencies={currencies.slice(0, 3)} />
+          )}
+        </>
+      ) : (
+        <Auth onLogin={setUser} />
+      )}
     </div>
   );
 }
