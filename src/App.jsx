@@ -1,11 +1,34 @@
+import { Header } from './components/Header';
+
 import styles from './App.module.scss';
+import { useEffect, useState } from 'react';
+import { getRates } from './api/currency';
 
 function App() {
+  const [rates, setRates] = useState();
+  
+  useEffect(() => {
+    const currencies = ['UAH', 'USD', 'EUR'];
+
+    Promise.all(currencies.map(getRates))
+      .then(results => {
+        const ratesState = {};
+
+        currencies.forEach((currency, index) => {
+          const { UAH, USD, EUR } = results[index];
+
+          ratesState[currency] = { UAH, USD, EUR };
+        });
+
+        setRates(ratesState);
+      });
+  }, []);
+
   return (
     <div className={styles.app}>
-      Lorem ipsum dolor sit amet consectetur, adipisicing elit. Culpa adipisci placeat itaque beatae animi? Temporibus, reprehenderit. Natus exercitationem hic ad, eos harum rerum iusto similique ullam maiores alias. Sequi, iste!
+      {rates && <Header rates={rates} />}
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

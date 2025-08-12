@@ -1,0 +1,16 @@
+.header {
+  box-sizing: border-box;
+  height: 50px;
+  background-color: var(--main-color);
+  border: 1px solid var(--secondary-color);
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-inline: 20px;
+  
+  .rates-wrapper {
+    display: flex;
+    gap: 20px;
+  }
+}
